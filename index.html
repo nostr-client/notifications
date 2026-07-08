@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>notifications — mentions and reactions demo</title>
+<link rel="stylesheet" href="https://nostr-client.github.io/theme/theme.css">
+<style>
+  body { max-width: 42rem; margin: 2.5rem auto; padding: 0 1.2rem 4rem; }
+  h1 { font-size: 1.4rem; } h1 a { text-decoration: none; }
+  header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="https://github.com/nostr-client/notifications">nostr-client / notifications</a></h1>
+  <nostr-login></nostr-login>
+</header>
+<p class="nc-muted">Everything that mentions, replies to, reposts, or reacts
+to you — live. Log in (or it shows jack's, for the demo):</p>
+
+<nostr-notifications id="n" pubkey="82341f882b6eabcd2ba7f1ef90aad961cf074af15b9ef44a09f9d2a8fbfbe6a2"></nostr-notifications>
+
+<script type="module">
+  import 'https://nostr-client.github.io/login/login.js'
+  import './notifications.js'
+
+  const n = document.getElementById('n')
+  window.addEventListener('nostr:login', () => n.removeAttribute('pubkey'))
+  n.addEventListener('nostr:note-click', (e) => console.log('open thread for', e.detail.targetId))
+</script>
+</body>
+</html>
