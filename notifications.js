@@ -130,6 +130,11 @@ class NostrNotifications extends HTMLElement {
       icon.classList.add('repost')
       icon.textContent = '↻'
       label = ' reposted your note'
+    } else if (event.tags.some((t) => t[0] === 't' && t[1] === 'onchain-tip')) {
+      icon.textContent = '₿'
+      icon.style.color = '#f7931a'
+      const sats = Number(event.tags.find((t) => t[0] === 'amount')?.[1] ?? 0)
+      label = sats ? ` tipped you ${sats.toLocaleString()} sats` : ' tipped you'
     } else {
       icon.classList.add('reply')
       icon.textContent = '💬'
